@@ -1,63 +1,93 @@
-Tamining Modality in Continual Audio-Visual Segmentation
+# Taming Modality in Continual Audio-Visual Segmentation
 
-https://img.shields.io/badge/arXiv-2510.17234-b31b1b
+[![arXiv](https://img.shields.io/badge/arXiv-2510.17234-b31b1b)](https://arxiv.org/abs/2510.17234)
+![TMLR 2026](https://img.shields.io/badge/TMLR-2026-purple)
+![Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue)
+![PyTorch 2.0+](https://img.shields.io/badge/PyTorch-2.0+-orange)
+![License Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-green)
 
-https://img.shields.io/badge/TMLR-2026-purple
+This repository provides the official PyTorch implementation for **CMR**, a rehearsal-based continual learning framework for **Audio-Visual Segmentation (AVSS)**.  
+CMR tackles multi-modal semantic drift and co-occurrence confusion in continual AVSS.
 
-https://img.shields.io/badge/Python-3.10+-blue
+---
 
-https://img.shields.io/badge/PyTorch-2.0+-orange
+## 🪵 TODO List
 
-https://img.shields.io/badge/License-Apache_2.0-green
-This repository provides the official PyTorch implementation for CMR, a rehearsal-based continual learning framework for Audio-Visual Segmentation. CMR tackles multi-modal semantic drift and co-occurrence confusion through multi-modal sample selection and collision-based sample rehearsal, built on top of the AVSBench benchmark. The paper has been accepted at TMLR 2026.
-🪵 TODO List
+- [x] Release core AVSS codebase
+- [x] Complete README documentation
+- [x] Document data and checkpoint paths
+- [ ] Add more detailed usage notes if needed
 
-✅ Release core AVSS codebase
-✅ Complete README documentation
-✅ Document data and checkpoint paths
-⏳ Add more detailed usage notes if needed
-🔥 What's New
+---
 
-(2026.7.2) The README has been reorganized into a project homepage style.
-(2026.7.2) The repository now emphasizes the AVSS codebase, data preparation, and run commands.
-(2025.10.17) 📄 Paper released on arXiv.
-🧠 CMR: Collision-based Memory Rehearsal for Continual Audio-Visual Segmentation
+## 🔥 What's New
 
-Official PyTorch implementation of CMR, accepted at TMLR 2026.
+- **2026-07-02**: README reorganized into a project-homepage style.
+- **2026-07-02**: Repository now emphasizes AVSS codebase, data preparation, and run commands.
+- **2025-10-17**: 📄 Paper released on arXiv.
 
-📌 Abstract
+---
 
-Audio-visual segmentation (AVS) aims to localize and segment sounding objects in video by jointly modeling audio and visual signals. Extending AVS to a continual learning setting introduces two core challenges: multi-modal semantic drift, where the model forgets previously learned audio-visual associations, and co-occurrence confusion, where spurious correlations between co-occurring sounds degrade segmentation quality.
-We propose CMR (Collision-based Memory Rehearsal), a rehearsal-based framework that addresses these challenges through:
-🎯 Multi-modal Sample Selection: Identifies representative and diverse samples across audio-visual modalities for memory construction.
-🔁 Collision-based Rehearsal: Resolves co-occurrence confusion by strategically replaying samples that expose inter-class collisions.
-🧩 Continual AVSS Pipeline: A full sequential learning pipeline built on AVSBench for reproducible experimentation.
-🏗️ Architecture
+## 🧠 CMR: Collision-based Memory Rehearsal for Continual Audio-Visual Segmentation
 
-🎯 Multi-modal Sample Selection
+Official PyTorch implementation of **CMR**, accepted at **TMLR 2026**.
+
+### 📌 Abstract
+
+Audio-visual segmentation (AVS) aims to localize and segment sounding objects in video by jointly modeling audio and visual signals.  
+Extending AVS to a continual learning setting introduces two core challenges:
+
+1. **Multi-modal semantic drift** across sequential tasks.
+2. **Co-occurrence confusion**, where the model overfits spurious audio-visual correlations.
+
+We propose **CMR (Collision-based Memory Rehearsal)**, a rehearsal-based framework that addresses these challenges through:
+
+- 🎯 **Multi-modal Sample Selection**: identifies representative and diverse samples across audio-visual modalities for memory construction.
+- 🔁 **Collision-based Rehearsal**: resolves co-occurrence confusion by strategically replaying samples that expose inter-class collisions.
+- 🧩 **Continual AVSS Pipeline**: a full sequential learning pipeline built on AVSBench for reproducible experimentation.
+
+---
+
+## 🏗️ Architecture
+
+### 🎯 Multi-modal Sample Selection
 Selects informative and representative exemplars by jointly considering audio and visual feature distributions to build a compact memory buffer.
-🔁 Collision-based Memory Rehearsal
+
+### 🔁 Collision-based Memory Rehearsal
 Replays carefully selected samples that expose co-occurrence conflicts, preventing the model from exploiting spurious audio-visual correlations across tasks.
-🧩 Continual AVSS Training Pipeline
+
+### 🧩 Continual AVSS Training Pipeline
 Integrates the above components into a sequential task training loop, enabling the model to learn new categories without catastrophically forgetting prior ones.
-📊 Results
 
-Results on the AVSBench AVSS benchmark under the continual learning setting. Please refer to the paper for full quantitative results.
+---
 
-🚀 Get Started
+## 📊 Results
 
-Installation
+Results are reported on the **AVSBench AVSS benchmark** under the continual learning setting.  
+Please refer to the paper for full quantitative comparisons.
 
-bash
-git clone https://github.com/your-username/continual-avs.git
-cd continual-avs
+---
+
+## 🚀 Get Started
+
+### 1) Installation
+
+```bash
+git clone https://github.com/cqu-student/CAVS-CMR.git
+cd CAVS-CMR
 pip install -r requirements.txt
-Data Preparation
+```
 
-Download the AVSBench dataset and place it under avsbench_data/.
-Download pretrained backbones and place them under pretrained_backbones/.
-Update the data and backbone paths in avs_scripts/avss/config.py.
-continual-avs/
+### 2) Data Preparation
+
+1. Download the AVSBench dataset and place it under `avsbench_data/`.
+2. Download pretrained backbones and place them under `pretrained_backbones/`.
+3. Update data/backbone paths in `avs_scripts/avss/config.py`.
+
+Example layout:
+
+```text
+CAVS-CMR/
 ├── avsbench_data/
 │   ├── Multi-sources/
 │   └── ...
@@ -72,34 +102,49 @@ continual-avs/
 │       ├── model/
 │       └── utils/
 └── preprocess_scripts/
-🏋️ Train
+```
 
-bash
+---
+
+## 🏋️ Train
+
+```bash
 cd avs_scripts/avss
 bash train.sh
-Key paths to configure inside train.sh or config.py:
-全屏
-复制
-Parameter	Description
-data_root	Path to avsbench_data/
-backbone_path	Path to pretrained backbone weights
-output_dir	Directory to save checkpoints and logs
-task_split	Continual task split configuration
-🧪 Test (Evaluation)
+```
 
-bash
+Key paths to configure inside `train.sh` or `config.py`:
+
+| Parameter       | Description                                  |
+|----------------|----------------------------------------------|
+| `data_root`     | Path to `avsbench_data/`                     |
+| `backbone_path` | Path to pretrained backbone weights          |
+| `output_dir`    | Directory to save checkpoints and logs       |
+| `task_split`    | Continual task split configuration           |
+
+---
+
+## 🧪 Test (Evaluation)
+
+```bash
 cd avs_scripts/avss
 bash test.sh
-Key paths to configure inside test.sh or config.py:
-全屏
-复制
-Parameter	Description
-data_root	Path to avsbench_data/
-checkpoint_path	Path to the trained model checkpoint
-output_dir	Directory to save evaluation results
-📁 Repository Structure
+```
 
-continual-avs/
+Key paths to configure inside `test.sh` or `config.py`:
+
+| Parameter         | Description                              |
+|------------------|------------------------------------------|
+| `data_root`       | Path to `avsbench_data/`                 |
+| `checkpoint_path` | Path to the trained model checkpoint     |
+| `output_dir`      | Directory to save evaluation results     |
+
+---
+
+## 📁 Repository Structure
+
+```text
+CAVS-CMR/
 ├── avs_scripts/
 │   └── avss/
 │       ├── train.py              # Training entry point
@@ -116,15 +161,23 @@ continual-avs/
 ├── requirements.txt
 ├── LICENSE
 └── README.md
-📝 Notes
+```
 
-This is a code-only release. Dataset folders, pretrained weights, checkpoints, logs, and paper source files are intentionally omitted from the public upload.
-The AVSBench code is included only as the benchmark foundation for the AVSS experiments.
-Please refer to AVSBench for dataset download and license details.
-📚 Citation
+---
 
-If you find this work useful, please consider citing our paper and the AVSBench benchmark:
-bibtex
+## 📝 Notes
+
+- This is a code-only release. Dataset folders, pretrained weights, checkpoints, logs, and paper source files are intentionally omitted.
+- AVSBench code is included only as the benchmark foundation for AVSS experiments.
+- Please refer to AVSBench for dataset download and license details.
+
+---
+
+## 📚 Citation
+
+If you find this work useful, please consider citing CMR and AVSBench:
+
+```bibtex
 @article{your2026cmr,
   title     = {Continual Audio-Visual Segmentation},
   author    = {Your Name and Coauthors},
@@ -138,6 +191,10 @@ bibtex
   booktitle = {ECCV},
   year      = {2022}
 }
-License
+```
 
-This repository is released under the Apache 2.0 license as found in the LICENSE file.
+---
+
+## License
+
+This repository is released under the **Apache 2.0** license. See [LICENSE](LICENSE).
