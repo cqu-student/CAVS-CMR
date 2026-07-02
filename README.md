@@ -178,18 +178,11 @@ CAVS-CMR/
 If you find this work useful, please consider citing CMR and AVSBench:
 
 ```bibtex
-@article{your2026cmr,
-  title     = {Continual Audio-Visual Segmentation},
-  author    = {Your Name and Coauthors},
-  journal   = {Transactions on Machine Learning Research},
-  year      = {2026}
-}
-
-@inproceedings{zhou2022avsbench,
-  title     = {Audio-Visual Segmentation},
-  author    = {Zhou, Jinxing and others},
-  booktitle = {ECCV},
-  year      = {2022}
+@article{hong2026taming,
+  title   = {Taming Modality Entanglement in Continual Audio-Visual Segmentation},
+  author  = {Hong, Yuyang and Yang, Qi and Zhang, Tao and Wang, Zili and Fu, Zhaojin and Ding, Kun and Fan, Bin and Xiang, Shiming},
+  journal = {Transactions on Machine Learning Research},
+  year    = {2026},
 }
 ```
 
